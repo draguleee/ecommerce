@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <section id="hero">
+        <div class="hero-container">
+            <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active" style="background-image: url(img/home/welcome-1.gif)">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h2> Welcome to E-Cinema! </h2>
+                                <p>
+                                    Your place to find the latest streaming movies at your favourite cinemas.
+                                </p>
+                                <div>
+                                    <a class="btn btn-success" asp-controller="Movies" asp-action="Index">Go to Movies page</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="background-image: url(img/home/welcome-2.gif);">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h2> Buy Tickets to your Favourite Movies </h2>
+                                <p>
+                                    You must be logged in in order to purchase a ticket.
+                                </p>
+                                <div>
+                                    <a class="btn btn-success" asp-controller="Account" asp-action="Login">Go to Login page</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="background-image: url(img/home/welcome-3.gif);">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h2> Become a eCinema user </h2>
+                                <p>
+                                    In order to become a member, you must create an user account on this website.
+                                </p>
+                                <div>
+                                    <a class="btn btn-success" asp-controller="Account" asp-action="Register">Go to Register page</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+                </a>
+                <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+

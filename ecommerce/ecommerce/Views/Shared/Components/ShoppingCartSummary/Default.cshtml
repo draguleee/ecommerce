@@ -1,0 +1,15 @@
+﻿@* Define the model *@
+@model int;
+
+@* Define ViewData *@
+
+@* Write the HTML code *@
+@if (Model > 0) 
+{
+    <li class="nav-item">
+        <a class="nav-link text-white" asp-controller="Orders" asp-action="ShoppingCart">
+            <i class="bi bi-cart4"></i> @Model
+        </a>
+    </li>
+}
+

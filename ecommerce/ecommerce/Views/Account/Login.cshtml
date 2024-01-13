@@ -1,0 +1,50 @@
+﻿﻿@using ecommerce.Data.ViewModels;
+@* Define the model *@
+@model LoginVM;
+
+@* Define ViewData *@
+@{
+    ViewData["Title"] = "Log in to your account";
+}
+
+@* Write the HTML code *@
+<div class="text-center">
+    <section id="hero">
+        <div class="hero-container">
+            <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active" style="background-image: url(https://64.media.tumblr.com/7e60191f98d442cff094dea01f7a7752/tumblr_ntik0xmTjf1qze3hdo1_r1_500.gif)">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h1 style="padding-bottom: 30px"> Log Into Account </h1>
+                                @if (TempData["Error"] != null)
+                                {
+                                    <div class="col-md-12 alert alert-danger">
+                                        <span><b>Sorry!</b> - @TempData["Error"] </span>
+                                    </div>
+                                }
+                                <form asp-action="Login">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group pad">
+                                        <label asp-for="EmailAddress" class="control-label"></label>
+                                        <input asp-for="EmailAddress" class="form-control" />
+                                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group pad">
+                                        <label asp-for="Password" class="control-label"></label>
+                                        <input asp-for="Password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group pad">
+                                        <input class="btn btn-success float-right" type="submit" value="Log in" />
+                                        <a class="btn btn-secondary" asp-controller="Movies" asp-action="Index">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
