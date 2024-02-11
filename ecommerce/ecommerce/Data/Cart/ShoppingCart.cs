@@ -10,13 +10,13 @@ namespace ecommerce.Data.Cart
         public string ShoppingCartId { get; set; }
         public List<ShoppingCartItem> ShoppingCartItems { get; set; }
 
-        // Constructor for ShoppingCart
+        // Constructor pentru ShoppingCart
         public ShoppingCart(AppDbContext context)
         {
             _context = context;
         }
 
-        // Get shopping cart
+        // Metoda care obtine / creeaza un cos de cumparaturi
         public static ShoppingCart GetShoppingCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
@@ -26,7 +26,8 @@ namespace ecommerce.Data.Cart
             return new ShoppingCart(context) { ShoppingCartId = cartId };
         }
 
-        // Add Movie to cart
+        // Metoda care adauga un film in cosul de cumparaturi
+        // Daca filmul deja exista in cos, se creste cantitatea
         public void AddItemToCart(Movie movie)
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Movie.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
@@ -47,7 +48,8 @@ namespace ecommerce.Data.Cart
             _context.SaveChanges();
         }
 
-        // Remove item from cart
+        // Metoda care elimina un film din cosul de cumparaturi
+        // Daca cantitatea este mai mare ca 1, se decrementeaza 
         public void RemoveItemFromCart(Movie movie) 
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Movie.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
@@ -59,19 +61,21 @@ namespace ecommerce.Data.Cart
             _context.SaveChanges();
         }
 
-        // Get shopping cart items
+        // Metoda care returneaza elementele din cosul de cumparaturi
+        // Se incarca elementele in baza de date daca nu sunt deja incarcate
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Movie).ToList());
         }
 
-        // Get shopping cart total
+        // Metoda care returneaza totalul cosului de cumparaturi
+        // Se inmulteste pretul fiecarui film cu cantitatea adaugata in cos
         public double GetShoppingCartTotal() 
         {
             return _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Movie.Price * n.Amount).Sum();
         }
 
-        // Clear shopping cart
+        // Metoda care goleste continutul cosului de cumparaturi
         public async Task ClearShoppingCartAsync()
         {
             var items = await _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToListAsync();

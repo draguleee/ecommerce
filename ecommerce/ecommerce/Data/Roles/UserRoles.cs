@@ -2,7 +2,10 @@
 {
     public static class UserRoles
     {
-        public const string Admin = "Admin";        // Admin role
-        public const string User = "User";          // User role
+        // Rolul de admin
+        public const string Admin = "Admin"; 
+        
+        // Rolul de simplu utilizator
+        public const string User = "User";         
     }
 }
