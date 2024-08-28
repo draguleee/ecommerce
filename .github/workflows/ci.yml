@@ -36,14 +36,20 @@ jobs:
     - name: Build
       run: dotnet build ecommerce/ecommerce.sln --no-restore
     
-    - name: Run tests
-      run: dotnet test ecommerce/ecommerce.sln --no-build --verbosity normal --logger "trx;LogFileName=testing-nunit/TestResults/test_results.trx"
-    
-    - name: List test results directory
-      run: dir testing-nunit\TestResults
+    - name: Run tests and generate test_results.trx
+      run: |
+        mkdir -p testing-nunit/TestResults
+        dotnet test ecommerce/ecommerce.sln --no-build --verbosity normal --logger "trx;LogFileName=testing-nunit/TestResults/test_results.trx"
 
-    - name: Upload test results
+    - name: Output directory structure for diagnosis
+      run: Get-ChildItem -Recurse -Force
+
+    - name: List test results directory (if exists)
+      run: dir testing-nunit\TestResults || echo "TestResults directory not found."
+
+    - name: Upload test results (if file exists)
       uses: actions/upload-artifact@v2
+      if: success()
       with:
         name: TestResults
         path: 'testing-nunit/TestResults/test_results.trx'
@@ -51,11 +57,15 @@ jobs:
     - name: Set Testmo Access Key
       run: echo "TESTMO_ACCESS_KEY=${{ secrets.TESTMO_ACCESS_KEY }}" >> $GITHUB_ENV
 
-    - name: Report test results to Testmo
+    - name: Report test results to Testmo (if file exists)
       run: |
-        testmo automation:run:submit \
-        --instance https://ecommerce-app.testmo.net \
-        --project-id 2 \
-        --name "Automated Test Run" \
-        --source "GitHub" \
-        --results trx:testing-nunit/TestResults/test_results.trx
+        if (Test-Path -Path "testing-nunit/TestResults/test_results.trx") {
+          testmo automation:run:submit \
+          --instance https://ecommerce-app.testmo.net \
+          --project-id 2 \
+          --name "Automated Test Run" \
+          --source "GitHub" \
+          --results trx:testing-nunit/TestResults/test_results.trx
+        } else {
+          echo "Test results not found. Skipping Testmo submission."
+        }
