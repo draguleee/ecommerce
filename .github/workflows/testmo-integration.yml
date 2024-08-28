@@ -29,8 +29,9 @@ jobs:
         run: mkdir -p ecommerce/ecommerce/TestResults
 
       - name: List TestResults Directory
-        run: dir ecommerce/ecommerce/TestResults
+        run: dir "ecommerce\\ecommerce\\TestResults"
         shell: cmd
+      
 
       - name: Run NUnit Tests with dotnet
         run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=ecommerce/ecommerce/TestResults/test_results.trx"
