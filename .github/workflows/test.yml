@@ -28,13 +28,13 @@ jobs:
       run: dotnet build ecommerce/ecommerce.sln --no-restore --configuration Release
 
     - name: Run NUnit Tests
-      run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=TestResults.trx"
+      run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=ecommerce/TestResults.trx"
 
     - name: Install trx2junit
       run: dotnet tool install -g trx2junit
 
     - name: Convert TRX to NUnit XML
-      run: trx2junit TestResults.trx -o TestResults.xml
+      run: trx2junit ecommerce/TestResults.trx -o ecommerce/TestResults.xml
 
     - name: Upload Test Results to Testmo
       env:
@@ -44,5 +44,5 @@ jobs:
         curl -X POST "https://yourcompany.testmo.com/api/v1/import/junit" \
         -H "Content-Type: multipart/form-data" \
         -H "Authorization: Bearer $TESTMO_API_KEY" \
-        -F "file=@TestResults.xml" \
+        -F "file=@ecommerce/TestResults.xml" \
         -F "project_id=$TESTMO_PROJECT_ID"
