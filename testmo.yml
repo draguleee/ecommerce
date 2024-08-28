@@ -1,0 +1,3 @@
+api_url: https://ecommerce-app.testmo.net/
+api_key: ${{ secrets.TESTMO_API_KEY }} 
+project_id: 2

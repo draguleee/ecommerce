@@ -1,0 +1,49 @@
+name: CI for ASP.NET Core MVC with NUnit and Testmo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x' # Adjust based on your target framework
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build the project
+      run: dotnet build --no-restore
+
+    - name: Run tests
+      run: dotnet test --no-build --logger "trx;LogFileName=test-results.trx"
+      continue-on-error: true
+
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: TestResults
+        path: '**/test-results.trx'
+
+    - name: Install Testmo CLI
+      run: |
+        curl -O https://example.com/testmo-cli.zip
+        unzip testmo-cli.zip
+        mv testmo /usr/local/bin/testmo
+
+    - name: Upload test results to Testmo
+      run: testmo exec --nunit --config testmo.yml -- nunit3-console.exe MyMvcCoreApp.Tests.dll
+      env:
+        TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
