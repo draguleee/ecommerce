@@ -24,11 +24,11 @@ jobs:
 
       # Build the ASP.NET Core MVC app
       - name: Build the ecommerce project
-        run: dotnet build ecommerce/ecommerce.sln --no-restore
+        run: dotnet build ecommerce/ecommerce/ecommerce.csproj --no-restore
 
       # Build the NUnit test project
       - name: Build the ecommerce.nunit project
-        run: dotnet build ecommerce.nunit/ecommerce.nunit.csproj --no-restore
+        run: dotnet build ecommerce/ecommerce.nunit/ecommerce.nunit.csproj --no-restore
 
       # Run tests and generate NUnit XML results
       - name: Run tests
