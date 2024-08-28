@@ -26,7 +26,7 @@ jobs:
         run: dotnet build ecommerce/ecommerce.sln --no-restore
 
       - name: Run tests
-        run: dotnet test --logger "trx;LogFileName=test_results.trx"
+        run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=test_results.trx"
 
       - name: Upload Test Results to Testmo
         run: |
