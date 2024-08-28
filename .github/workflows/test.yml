@@ -24,7 +24,7 @@ jobs:
 
       # Build the ASP.NET Core MVC app
       - name: Build the ecommerce project
-        run: dotnet build ecommerce/ecommerce.csproj --no-restore
+        run: dotnet build ecommerce/ecommerce.sln --no-restore
 
       # Build the NUnit test project
       - name: Build the ecommerce.nunit project
