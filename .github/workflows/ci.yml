@@ -46,6 +46,14 @@ jobs:
       run: npm install -g @testmo/testmo-cli
 
     - name: Upload test results to Testmo
-      run: testmo import --config testmo.yml --file test-results.trx --type nunit
+      run: testmo import --config testmo.yml --file test-results.trx --type nunit --verbose
       env:
         TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
+
+    - name: Fallback: Use cURL to upload results (if Testmo CLI fails)
+      if: failure()
+      run: |
+        curl -X POST -H "Authorization: Bearer ${{ secrets.TESTMO_API_KEY }}" \
+             -F "file=@test-results.trx" \
+             -F "type=nunit" \
+             https://your-testmo-instance/api/v1/import/nunit
