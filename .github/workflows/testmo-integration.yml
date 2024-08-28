@@ -26,15 +26,10 @@ jobs:
         run: dotnet build ecommerce/ecommerce.sln --no-restore
 
       - name: Create results directory
-        run: mkdir -p ecommerce/ecommerce/TestResults
-
-      - name: List TestResults Directory
-        run: dir "ecommerce\\ecommerce\\TestResults"
-        shell: cmd
-      
+        run: mkdir -p ecommerce/ecommerce/TestResults      
 
       - name: Run NUnit Tests with dotnet
-        run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=ecommerce/ecommerce/TestResults/test_results.trx"
+        run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=ecommerce/ecommerce/TestResults/test_results.trx" --verbosity detailed
 
       - name: Upload Test Results to Testmo
         run: |
