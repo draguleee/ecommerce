@@ -33,10 +33,13 @@ jobs:
     - name: Build solution
       run: dotnet build ecommerce/ecommerce.sln --no-restore
 
+    - name: Install NUnit Console Runner
+      run: dotnet tool install --global nunit.consolerunner
+
     - name: Run NUnit tests and generate JUnit XML file
       run: |
         mkdir -p ecommerce/testing-nunit/results
-        dotnet test "ecommerce/testing-nunit/bin/Debug/net8.0/testing-nunit.dll" --result="ecommerce/ecommerce/testing-nunit/results/test-results.xml;transform=nunit3-junit.xslt"
+        nunit3-console.exe "ecommerce/testing-nunit/bin/Debug/net8.0/testing-nunit.dll" --result="ecommerce/testing-nunit/results/test-results.xml;transform=nunit3-junit.xslt"
       
     - name: Set Testmo Access Key
       run: echo "TESTMO_ACCESS_KEY=${{ secrets.TESTMO_ACCESS_KEY }}" >> $GITHUB_ENV
