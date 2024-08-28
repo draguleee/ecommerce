@@ -24,6 +24,7 @@ namespace ecommerce.Tests.Models
             };
         }
 
+        // Result validation
         private IList<ValidationResult> ValidateModel(Actor actor)
         {
             var validationContext = new ValidationContext(actor);

@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+  
+    - name: Install Testmo CLI
+      run: npm install -g @testmo/testmo-cli
+
+    - name: Restore dependencies
+      run: dotnet restore ecommerce/ecommerce.sln
+
+    - name: Build
+      run: dotnet build ecommerce/ecommerce.sln --no-restore
+    
+    - name: Run tests and generate test_results.trx in the correct folder
+      run: |
+        mkdir -p ecommerce/ecommerce/testing-nunit/TestResults
+        dotnet test ecommerce/ecommerce.sln --no-build --verbosity normal --logger "trx;LogFileName=ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx"
+
+    - name: List test results directory
+      run: ls -R ecommerce/ecommerce/testing-nunit/TestResults
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: TestResults
+        path: 'ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx'
+
+    - name: Set Testmo Access Key
+      run: echo "TESTMO_ACCESS_KEY=${{ secrets.TESTMO_ACCESS_KEY }}" >> $GITHUB_ENV
+
+    - name: Report test results to Testmo
+      run: |
+        testmo automation:run:submit \
+        --instance https://ecommerce-app.testmo.net \
+        --project-id 2 \
+        --name "Automated Test Run" \
+        --source "GitHub" \
+        --results trx:ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx
