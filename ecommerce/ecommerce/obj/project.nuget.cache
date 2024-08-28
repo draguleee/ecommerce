@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "JIKBYdKoG5U/9nNvrTNvzMdZH9KFgenyeVnFvR6gvMdJAYBWyYTLDY0SL8ruCjdU4fZKF6c2L/No/VKMZURnWw==",
+  "dgSpecHash": "AXoUWhXd1N+h630oUlZ/nP509Qb+OphXJ8yk7RwgQaENVIILK6PJ7uq4X+x9uwR/Am5johSkRNNziuspB3KeFg==",
   "success": true,
   "projectFilePath": "C:\\Users\\aandr\\source\\repos\\ecommerce\\ecommerce\\ecommerce\\ecommerce.csproj",
   "expectedPackageFiles": [
@@ -51,6 +51,8 @@
     "C:\\Users\\aandr\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\aandr\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\aandr\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\aandr\\.nuget\\packages\\nunit\\4.2.1\\nunit.4.2.1.nupkg.sha512",
+    "C:\\Users\\aandr\\.nuget\\packages\\nunit3testadapter\\4.6.0\\nunit3testadapter.4.6.0.nupkg.sha512",
     "C:\\Users\\aandr\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\aandr\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\aandr\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",

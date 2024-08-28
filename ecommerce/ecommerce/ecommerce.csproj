@@ -25,6 +25,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NUnit" Version="4.2.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +34,10 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Testing\" />
   </ItemGroup>
 
 </Project>

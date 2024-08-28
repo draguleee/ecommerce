@@ -20,16 +20,16 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Install dependencies
-        run: dotnet restore ecommerce/ecommerce.sln
+        run: dotnet restore ecommerce/ecommerce/ecommerce.sln
 
       - name: Build
-        run: dotnet build ecommerce/ecommerce.sln --no-restore
+        run: dotnet build ecommerce/ecommerce/ecommerce.sln --no-restore
 
       - name: Create results directory
-        run: mkdir -p ecommerce/testing-nunit/results
+        run: mkdir -p ecommerce/ecommerce/ecommerce/testing-nunit/results
 
       - name: Run NUnit Tests with dotnet
-        run: dotnet test ecommerce/testing-nunit --logger "trx;LogFileName=results/test_results.trx"
+        run: dotnet test ecommerce/ecommerce/ecommerce.sln --logger "trx;LogFileName=ecommerce/ecommerce/ecommerce/testing-nunit/results/test_results.trx"
 
       - name: Upload Test Results to Testmo
         run: |
@@ -38,7 +38,7 @@ jobs:
             "Content-Type"  = "application/json"
           }
           $jsonPayload = @{
-            "results" = [System.IO.File]::ReadAllText("${{ github.workspace }}\\ecommerce\\testing-nunit\\results\\test_results.trx")
+            "results" = [System.IO.File]::ReadAllText("${{ github.workspace }}\\ecommerce\\ecommerce\\ecommerce\\testing-nunit\\results\\test_results.trx")
           } | ConvertTo-Json
       
           Invoke-RestMethod -Uri "https://ecommerce-app.testmo.net/api/v1/import/nunit" -Method Post -Headers $headers -Body $jsonPayload
