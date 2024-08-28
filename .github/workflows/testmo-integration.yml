@@ -1,42 +1,57 @@
-name: Testmo NUnit Integration
+name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: windows-latest
-
+    
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '8.0.x'
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+  
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install Testmo CLI
+      run: npm install -g @testmo/testmo-cli
 
-      - name: Install dependencies
-        run: dotnet restore ecommerce/ecommerce.sln
+    - name: Restore dependencies
+      run: dotnet restore ecommerce/ecommerce/ecommerce.sln
 
-      - name: Build
-        run: dotnet build ecommerce/ecommerce.sln --no-restore
+    - name: Build solution
+      run: dotnet build ecommerce/ecommerce/ecommerce.sln --no-restore
 
-      - name: Run tests
-        run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=TestResults/test_results.trx"
-
-      - name: Upload Test Results to Testmo
-        run: |
-          $headers = @{
-            "Authorization" = "Bearer $env:TESTMO_API_KEY"
-            "Content-Type"  = "application/json"
-          }
-          $jsonPayload = @{
-            "results" = [System.IO.File]::ReadAllText("${{ github.workspace }}\\ecommerce\\testing-nunit\\TestResults\\test_results.trx")
-          } | ConvertTo-Json
+    - name: Run NUnit tests and generate JUnit XML file
+      run: |
+        mkdir -p ecommerce/ecommerce/testing-nunit/results
+        nunit3-console.exe "ecommerce/ecommerce/testing-nunit/bin/Debug/net8.0/testing-nunit.dll" --result="ecommerce/ecommerce/testing-nunit/results/test-results.xml;transform=nunit3-junit.xslt"
       
-          Invoke-RestMethod -Uri "https://ecommerce-app.testmo.net/api/v1/import/nunit" -Method Post -Headers $headers -Body $jsonPayload
-        shell: pwsh
+    - name: Set Testmo Access Key
+      run: echo "TESTMO_ACCESS_KEY=${{ secrets.TESTMO_ACCESS_KEY }}" >> $GITHUB_ENV
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: TestResults
+        path: 'ecommerce/ecommerce/testing-nunit/results/test-results.xml'
+
+    - name: Report test results to Testmo
+      run: |
+        testmo automation:run:submit `
+          --instance https://your-instance.testmo.net `
+          --project-id 1 `
+          --name "NUnit Test Run" `
+          --source "unittests" `
+          --results ecommerce/ecommerce/testing-nunit/results/test-results.xml
