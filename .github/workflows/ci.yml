@@ -31,22 +31,22 @@ jobs:
       run: testmo --version
 
     - name: Restore dependencies
-      run: dotnet restore C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/ecommerce.sln
+      run: dotnet restore ecommerce/ecommerce.sln
 
     - name: Build
-      run: dotnet build C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/ecommerce.sln --no-restore
+      run: dotnet build ecommerce/ecommerce.sln --no-restore
     
     - name: Run tests
-      run: dotnet test C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/ecommerce.sln --no-build --verbosity normal --logger "trx;LogFileName=C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx"
+      run: dotnet test ecommerce/ecommerce.sln --no-build --verbosity normal --logger "trx;LogFileName=testing-nunit/TestResults/test_results.trx"
     
     - name: List test results directory
-      run: dir C:\Users\aandr\source\repos\ecommerce-org\ecommerce\ecommerce\testing-nunit\TestResults
+      run: dir testing-nunit\TestResults
 
     - name: Upload test results
       uses: actions/upload-artifact@v2
       with:
         name: TestResults
-        path: 'C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx'
+        path: 'testing-nunit/TestResults/test_results.trx'
 
     - name: Set Testmo Access Key
       run: echo "TESTMO_ACCESS_KEY=${{ secrets.TESTMO_ACCESS_KEY }}" >> $GITHUB_ENV
@@ -58,4 +58,4 @@ jobs:
         --project-id 2 \
         --name "Automated Test Run" \
         --source "GitHub" \
-        --results trx:C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx
+        --results trx:testing-nunit/TestResults/test_results.trx
