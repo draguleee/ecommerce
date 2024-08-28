@@ -46,6 +46,6 @@ jobs:
       run: npm install -g @testmo/testmo-cli
 
     - name: Upload test results to Testmo
-      run: testmo results import --config testmo.yml --file test-results.trx --type nunit
+      run: testmo import --config testmo.yml --file test-results.trx --type nunit
       env:
         TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
