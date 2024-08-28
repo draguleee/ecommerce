@@ -22,13 +22,13 @@ jobs:
         dotnet-version: '8.0.x' 
 
     - name: Restore dependencies
-      run: dotnet restore ecommerce/ecommerce.sln
+      run: dotnet restore MyMvcCoreApp.sln  # Specify the solution file
 
     - name: Build the project
-      run: dotnet build ecommerce/ecommerce.sln --no-restore
+      run: dotnet build MyMvcCoreApp.sln --no-restore  # Specify the solution file
 
     - name: Run tests
-      run: dotnet test ecommerce/ecommerce.sln --no-build --logger "trx;LogFileName=test-results.trx"
+      run: dotnet test MyMvcCoreApp.sln --no-build --logger "trx;LogFileName=test-results.trx"  # Specify the solution file
       continue-on-error: true
 
     - name: Publish Test Results
@@ -37,7 +37,14 @@ jobs:
         name: TestResults
         path: '**/test-results.trx'
 
+    - name: Install Testmo CLI
+      run: |
+        curl -LO https://testmo.com/cli/testmo-cli-linux.zip  # Ensure correct download URL
+        unzip testmo-cli-linux.zip
+        sudo mv testmo /usr/local/bin/testmo  # Move Testmo CLI to a directory in the PATH
+        sudo chmod +x /usr/local/bin/testmo  # Ensure Testmo CLI is executable
+
     - name: Upload test results to Testmo
-      run: testmo exec --nunit --config testmo.yml -- nunit3-console.exe ecommerce.tests.dll
+      run: /usr/local/bin/testmo exec --nunit --config testmo.yml -- nunit3-console.exe MyMvcCoreApp.Tests.dll
       env:
         TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
