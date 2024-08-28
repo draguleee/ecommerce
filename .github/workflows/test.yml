@@ -1,61 +1,42 @@
-name: Test
+name: CI Pipeline
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test:
-    name: Test
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      # List all files in the ecommerce.nunit directory to identify the correct path
-      - name: List files in ecommerce.nunit
-        run: ls -R ecommerce/ecommerce.nunit
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
 
-      - uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
+    - name: Restore dependencies
+      run: dotnet restore ecommerce/ecommerce.sln
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 19
+    - name: Build the solution
+      run: dotnet build ecommerce/ecommerce.sln --no-restore --configuration Release
 
-      # Restore your project dependencies
-      - name: Restore dependencies
-        run: dotnet restore ecommerce/ecommerce.sln
+    - name: Run NUnit Tests
+      run: dotnet test ecommerce/ecommerce.sln --logger "nunit;LogFilePath=TestResults.xml"
 
-      # Build the entire solution
-      - name: Build the solution
-        run: dotnet build ecommerce/ecommerce.sln --no-restore
-
-      # Run tests and generate NUnit XML results
-      - name: Run tests
-        run: dotnet test ecommerce/ecommerce.nunit/ecommerce.nunit.csproj --no-build --logger "nunit;LogFileName=results/test-results.xml"
-        continue-on-error: true
-
-      # Install Testmo CLI tool locally (then use npx testmo to run it)
-      - run: npm install --no-save @testmo/testmo-cli
-
-      # Optionally add a couple of fields such as the git hash and link to the build
-      - run: |
-          npx testmo automation:resources:add-field --name git --type string \
-            --value ${GITHUB_SHA:0:7} --resources resources.json
-          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          npx testmo automation:resources:add-link --name build \
-            --url $RUN_URL --resources resources.json
-
-      # Run automated tests and report results to Testmo
-      - run: |
-          npx testmo automation:run:submit \
-            --instance "$TESTMO_URL" \
-            --project-id 1 \
-            --name "Test run" \
-            --source "frontend" \
-            --resources resources.json \
-            --results results/test-results.xml \
-            -- echo "Tests Completed"
-        env:
-          TESTMO_URL: ${{ secrets.TESTMO_URL }}
-          TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
+    - name: Upload Test Results to Testmo
+      env:
+        TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
+        TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
+      run: |
+        curl -X POST "https://ecommerce-app.testmo.net/api/v1/import/junit" \
+        -H "Content-Type: multipart/form-data" \
+        -H "Authorization: Bearer $TESTMO_API_KEY" \
+        -F "file=@TestResults.xml" \
+        -F "project_id=$TESTMO_PROJECT_ID"
