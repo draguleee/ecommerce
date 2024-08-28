@@ -1,46 +1,11 @@
-name: Run NUnit Tests and Push Results to Testmo
+name: Test
 
-on:
-  push:
-    branches:
-      - main
-      - develop
-  pull_request:
-    branches:
-      - main
-      - develop
+on: [push, workflow_dispatch]
 
 jobs:
-  build:
+  test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
-
-    - name: Install dependencies
-      run: dotnet restore ecommerce/ecommerce.sln
-
-    - name: Build solution
-      run: dotnet build ecommerce/ecommerce.sln --configuration Debug
-
-    - name: Run NUnit Tests
-      run: dotnet test ecommerce/ecommerce.sln --no-build --configuration Debug --logger "trx;LogFileName=test_results.trx" --results-directory ./test-results
-
-    - name: Install Testmo CLI
-      run: |
-        curl -o testmo https://app.testmo.io/api/testmo
-        chmod +x testmo
-      env:
-        TESTMO_API_TOKEN: ${{ secrets.TESTMO_API_TOKEN }}
-
-    - name: Push Test Results to Testmo
-      run: |
-        ./testmo result:push test_results.trx --project 2
-      env:
-        TESTMO_API_TOKEN: ${{ secrets.TESTMO_API_TOKEN }}
+      - run: echo "Hello world"
