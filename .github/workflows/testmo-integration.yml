@@ -30,8 +30,14 @@ jobs:
 
       - name: Upload Test Results to Testmo
         run: |
-          $headers = @{ 
-            "Authorization" = "Bearer $env:TESTMO_API_KEY" 
+          $headers = @{
+            "Authorization" = "Bearer $env:TESTMO_API_KEY"
+            "Content-Type"  = "application/json"
           }
-          Invoke-RestMethod -Uri "https://ecommerce-app.testmo.net/api/v1/import/nunit" -Method Post -Headers $headers -InFile "D:\a\ecommerce\ecommerce\ecommerce\testing-nunit\TestResults\test_results.trx" -ContentType "multipart/form-data"
+          $jsonPayload = @{
+            "results" = [System.IO.File]::ReadAllText("D:\a\ecommerce\ecommerce\ecommerce\testing-nunit\TestResults\test_results.trx")
+          } | ConvertTo-Json
+      
+          Invoke-RestMethod -Uri "https://ecommerce-app.testmo.net/api/v1/import/nunit" -Method Post -Headers $headers -Body $jsonPayload
         shell: pwsh
+      
