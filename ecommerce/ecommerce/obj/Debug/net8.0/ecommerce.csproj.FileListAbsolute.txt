@@ -1,12 +1,6 @@
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\appsettings.json
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\ecommerce.staticwebassets.runtime.json
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\NUnit3.TestAdapter.dll
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\NUnit3.TestAdapter.pdb
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.engine.dll
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.engine.api.dll
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.engine.core.dll
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\testcentric.engine.metadata.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\ecommerce.exe
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\ecommerce.deps.json
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\ecommerce.runtimeconfig.json
@@ -15,6 +9,8 @@ C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\ecomm
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Humanizer.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -28,6 +24,9 @@ C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Micro
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Identity.Client.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
@@ -39,8 +38,6 @@ C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Micro
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\Mono.TextTemplating.dll
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.framework.dll
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.framework.legacy.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\System.CodeDom.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\System.Composition.AttributedModel.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\System.Composition.Convention.dll
@@ -138,7 +135,7 @@ C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\stati
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\scopedcss\bundle\ecommerce.styles.css
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\scopedcss\projectbundle\ecommerce.bundle.scp.css
-C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\ecommerce.csproj.CopyComplete
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\ecommerce.csproj.Up2Date
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\ecommerce.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\refint\ecommerce.dll
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\ecommerce.pdb
