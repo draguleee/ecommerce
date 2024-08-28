@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     steps:
     - name: Checkout code
@@ -31,25 +31,22 @@ jobs:
       run: testmo --version
 
     - name: Restore dependencies
-      run: dotnet restore ecommerce/ecommerce.sln
+      run: dotnet restore C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/ecommerce.sln
 
     - name: Build
-      run: dotnet build ecommerce/ecommerce.sln --no-restore
+      run: dotnet build C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/ecommerce.sln --no-restore
     
-    # Manually create TestResults directory and a dummy .trx file
-    - name: Manually create TestResults directory and dummy test_results.trx file
-      run: |
-        mkdir -p ecommerce/ecommerce/testing-nunit/TestResults
-        echo "<TestRun><Results></Results></TestRun>" > ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx
-
+    - name: Run tests
+      run: dotnet test C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/ecommerce.sln --no-build --verbosity normal --logger "trx;LogFileName=C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx"
+    
     - name: List test results directory
-      run: ls -R ecommerce/ecommerce/testing-nunit/TestResults
+      run: dir C:\Users\aandr\source\repos\ecommerce-org\ecommerce\ecommerce\testing-nunit\TestResults
 
     - name: Upload test results
       uses: actions/upload-artifact@v2
       with:
         name: TestResults
-        path: 'ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx'
+        path: 'C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx'
 
     - name: Set Testmo Access Key
       run: echo "TESTMO_ACCESS_KEY=${{ secrets.TESTMO_ACCESS_KEY }}" >> $GITHUB_ENV
@@ -61,4 +58,4 @@ jobs:
         --project-id 2 \
         --name "Automated Test Run" \
         --source "GitHub" \
-        --results trx:ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx
+        --results trx:C:/Users/aandr/source/repos/ecommerce-org/ecommerce/ecommerce/testing-nunit/TestResults/test_results.trx
