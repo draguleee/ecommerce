@@ -45,7 +45,12 @@ jobs:
       run: Get-ChildItem -Recurse -Force
 
     - name: List test results directory (if exists)
-      run: dir testing-nunit\TestResults || echo "TestResults directory not found."
+      run: |
+        if (Test-Path "testing-nunit\TestResults") {
+          dir testing-nunit\TestResults
+        } else {
+          Write-Host "TestResults directory not found."
+        }
 
     - name: Upload test results (if file exists)
       uses: actions/upload-artifact@v2
@@ -59,13 +64,13 @@ jobs:
 
     - name: Report test results to Testmo (if file exists)
       run: |
-        if (Test-Path -Path "testing-nunit/TestResults/test_results.trx") {
-          testmo automation:run:submit \
-          --instance https://ecommerce-app.testmo.net \
-          --project-id 2 \
-          --name "Automated Test Run" \
-          --source "GitHub" \
-          --results trx:testing-nunit/TestResults/test_results.trx
+        if (Test-Path "testing-nunit/TestResults/test_results.trx") {
+          & testmo automation:run:submit `
+            --instance https://ecommerce-app.testmo.net `
+            --project-id 2 `
+            --name "Automated Test Run" `
+            --source "GitHub" `
+            --results trx:testing-nunit/TestResults/test_results.trx
         } else {
-          echo "Test results not found. Skipping Testmo submission."
+          Write-Host "Test results not found. Skipping Testmo submission."
         }
