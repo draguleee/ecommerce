@@ -23,7 +23,7 @@ jobs:
 
       # Restore your project dependencies
       - name: Restore dependencies
-        run: dotnet restore ecommerce.sln
+        run: dotnet restore ecommerce/ecommerce.sln
 
       # Build the entire solution
       - name: Build the solution
