@@ -28,14 +28,14 @@ jobs:
       run: dotnet build ecommerce/ecommerce.sln --no-restore
 
     - name: Run tests
-      run: dotnet test ecommerce/ecommerce.sln --no-build --logger "trx;LogFileName=test-results.trx"
+      run: dotnet test ecommerce/ecommerce.sln --no-build --logger "nunit;LogFileName=test-results.xml"
       continue-on-error: true
 
     - name: Publish Test Results
       uses: actions/upload-artifact@v3
       with:
         name: TestResults
-        path: '**/test-results.trx'
+        path: '**/test-results.xml'
 
     - name: Install Node.js
       uses: actions/setup-node@v3
@@ -44,3 +44,9 @@ jobs:
 
     - name: Install Testmo CLI
       run: npm install -g @testmo/testmo-cli
+
+    - name: Upload Test Results to Testmo
+      run: testmo upload test-results.xml --project 2 --test-run SampleTestRun
+      env:
+        TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
+        TESTMO_URL: ${{ secrets.TESTMO_URL }}
