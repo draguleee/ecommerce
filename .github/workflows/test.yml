@@ -24,15 +24,15 @@ jobs:
 
       # Restore your project dependencies
       - name: Restore dependencies
-        run: dotnet restore ecommerce.sln
+        run: dotnet restore ecommerce/ecommerce.sln
 
       # Build the entire solution
       - name: Build the solution
-        run: dotnet build ecommerce.sln --no-restore
+        run: dotnet build ecommerce/ecommerce.sln --no-restore
 
       # Run tests and generate NUnit XML results
       - name: Run tests
-        run: dotnet test ecommerce.nunit/<actual-path-to-csproj>.csproj --no-build --logger "nunit;LogFileName=results/test-results.xml"
+        run: dotnet test ecommerce/ecommerce.nunit/<actual-path-to-csproj>.csproj --no-build --logger "nunit;LogFileName=results/test-results.xml"
         continue-on-error: true
 
       # Install Testmo CLI tool locally (then use npx testmo to run it)
