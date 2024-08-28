@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '7.0.x'
 
     - name: Restore dependencies
       run: dotnet restore ecommerce/ecommerce.sln
@@ -28,14 +28,20 @@ jobs:
       run: dotnet build ecommerce/ecommerce.sln --no-restore --configuration Release
 
     - name: Run NUnit Tests
-      run: dotnet test ecommerce/ecommerce.sln --logger "nunit;LogFilePath=TestResults.xml"
+      run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=TestResults.trx"
+
+    - name: Install trx2junit
+      run: dotnet tool install -g trx2junit
+
+    - name: Convert TRX to NUnit XML
+      run: trx2junit TestResults.trx -o TestResults.xml
 
     - name: Upload Test Results to Testmo
       env:
         TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
         TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
       run: |
-        curl -X POST "https://ecommerce-app.testmo.net/api/v1/import/junit" \
+        curl -X POST "https://yourcompany.testmo.com/api/v1/import/junit" \
         -H "Content-Type: multipart/form-data" \
         -H "Authorization: Bearer $TESTMO_API_KEY" \
         -F "file=@TestResults.xml" \
