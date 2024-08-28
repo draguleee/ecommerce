@@ -26,7 +26,7 @@ jobs:
         run: dotnet build ecommerce/ecommerce.sln --no-restore
 
       - name: Run tests
-        run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=test_results.trx"
+        run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=TestResults/test_results.trx"
 
       - name: Upload Test Results to Testmo
         run: |
@@ -35,9 +35,8 @@ jobs:
             "Content-Type"  = "application/json"
           }
           $jsonPayload = @{
-            "results" = [System.IO.File]::ReadAllText("D:\a\ecommerce\ecommerce\ecommerce\testing-nunit\TestResults\test_results.trx")
+            "results" = [System.IO.File]::ReadAllText("${{ github.workspace }}\\ecommerce\\testing-nunit\\TestResults\\test_results.trx")
           } | ConvertTo-Json
       
           Invoke-RestMethod -Uri "https://ecommerce-app.testmo.net/api/v1/import/nunit" -Method Post -Headers $headers -Body $jsonPayload
         shell: pwsh
-      
