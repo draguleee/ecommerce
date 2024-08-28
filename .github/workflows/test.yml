@@ -27,7 +27,7 @@ jobs:
 
       # Build the entire solution
       - name: Build the solution
-        run: dotnet build ecommerce.sln --no-restore
+        run: dotnet build ecommerce/ecommerce.sln --no-restore
 
       # Run tests and generate NUnit XML results
       - name: Run tests
