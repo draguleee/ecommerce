@@ -19,16 +19,16 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x' # Adjust based on your target framework
+        dotnet-version: '8.0.x' 
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ecommerce/ecommerce.sln
 
     - name: Build the project
-      run: dotnet build --no-restore
+      run: dotnet build ecommerce/ecommerce.sln --no-restore
 
     - name: Run tests
-      run: dotnet test --no-build --logger "trx;LogFileName=test-results.trx"
+      run: dotnet test ecommerce/ecommerce.sln --no-build --logger "trx;LogFileName=test-results.trx"
       continue-on-error: true
 
     - name: Publish Test Results
@@ -37,13 +37,7 @@ jobs:
         name: TestResults
         path: '**/test-results.trx'
 
-    - name: Install Testmo CLI
-      run: |
-        curl -O https://example.com/testmo-cli.zip
-        unzip testmo-cli.zip
-        mv testmo /usr/local/bin/testmo
-
     - name: Upload test results to Testmo
-      run: testmo exec --nunit --config testmo.yml -- nunit3-console.exe MyMvcCoreApp.Tests.dll
+      run: testmo exec --nunit --config testmo.yml -- nunit3-console.exe ecommerce.tests.dll
       env:
         TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
