@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ecommerce.nunit")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30ec0602c3276632c0d6095c07c2ee5a25e83d78")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd6497202c80d1a8659619a7a4677d7191445a7e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ecommerce.nunit")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ecommerce.nunit")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
