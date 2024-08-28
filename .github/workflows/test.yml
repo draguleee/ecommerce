@@ -10,8 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: ls -R
-        name: List all files for debugging
+      # List all files in the ecommerce.nunit directory to identify the correct path
+      - name: List files in ecommerce.nunit
+        run: ls -R ecommerce.nunit
 
       - uses: actions/setup-dotnet@v3
         with:
@@ -23,15 +24,15 @@ jobs:
 
       # Restore your project dependencies
       - name: Restore dependencies
-        run: dotnet restore ecommerce/ecommerce.sln
+        run: dotnet restore ecommerce.sln
 
       # Build the entire solution
       - name: Build the solution
-        run: dotnet build ecommerce/ecommerce.sln --no-restore
+        run: dotnet build ecommerce.sln --no-restore
 
       # Run tests and generate NUnit XML results
       - name: Run tests
-        run: dotnet test ecommerce.nunit/<correct-path-to-csproj>.csproj --no-build --logger "nunit;LogFileName=results/test-results.xml"
+        run: dotnet test ecommerce.nunit/<actual-path-to-csproj>.csproj --no-build --logger "nunit;LogFileName=results/test-results.xml"
         continue-on-error: true
 
       # Install Testmo CLI tool locally (then use npx testmo to run it)
