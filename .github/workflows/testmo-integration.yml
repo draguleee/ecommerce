@@ -31,3 +31,15 @@ jobs:
       - name: Run NUnit Tests with dotnet
         run: dotnet test ecommerce/ecommerce.sln --logger "trx;LogFileName=ecommerce/ecommerce/TestResults/test_results.trx"
 
+      - name: Upload Test Results to Testmo
+        run: |
+          $headers = @{
+            "Authorization" = "Bearer $env:TESTMO_ACCESS_KEY"
+            "Content-Type"  = "application/json"
+          }
+          $jsonPayload = @{
+            "results" = [System.IO.File]::ReadAllText("${{ github.workspace }}\\ecommerce\\ecommerce\\TestReslts\\test_results.trx")
+          } | ConvertTo-Json
+      
+          Invoke-RestMethod -Uri "https://ecommerce-app.testmo.net/api/v1/import/nunit" -Method Post -Headers $headers -Body $jsonPayload
+        shell: pwsh
