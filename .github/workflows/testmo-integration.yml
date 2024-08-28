@@ -23,7 +23,7 @@ jobs:
         run: dotnet restore ecommerce/ecommerce.sln
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build ecommerce/ecommerce.sln --no-restore
 
       - name: Run tests
         run: dotnet test --logger "trx;LogFileName=test_results.trx"
