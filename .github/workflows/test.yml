@@ -36,11 +36,12 @@ jobs:
     - name: Upload test results to Testmo
       env:
         TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
-        TESTMO_URL: ${{ secrets.TESTMO_URL }}
+        TESTMO_INSTANCE: ${{ secrets.TESTMO_INSTANCE }}
+        TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
       run: |
         testmo automation:run:submit \
           --instance $TESTMO_URL \
           --api-key $TESTMO_API_KEY \
-          --project "Your Project Name" \
+          --project-id $TESTMO_PROJECT_ID \
           --title "CI Test Run on Main" \
           --results "./ecommerce/TestResults/test_results.trx"
