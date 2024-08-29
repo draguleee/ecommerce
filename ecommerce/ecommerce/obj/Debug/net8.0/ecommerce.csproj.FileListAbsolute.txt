@@ -141,3 +141,11 @@ C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\refin
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\ecommerce.pdb
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\ecommerce.genruntimeconfig.cache
 C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\obj\Debug\net8.0\ref\ecommerce.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\NUnit3.TestAdapter.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\NUnit3.TestAdapter.pdb
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.engine.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.engine.api.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.engine.core.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\testcentric.engine.metadata.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.framework.dll
+C:\Users\aandr\source\repos\ecommerce\ecommerce\ecommerce\bin\Debug\net8.0\nunit.framework.legacy.dll

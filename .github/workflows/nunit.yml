@@ -1,0 +1,57 @@
+name: Nunit Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      working-directory: ./ecommerce
+      run: dotnet restore ecommerce.sln
+
+    - name: Build solution
+      working-directory: ./ecommerce
+      run: dotnet build ecommerce.sln --configuration Release
+
+    - name: Run NUnit tests
+      working-directory: ./ecommerce
+      run: dotnet test ecommerce.sln --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults --logger "trx;LogFileName=test_results.trx"
+
+    - name: Install Testmo CLI
+      run: npm install -g @testmo/testmo-cli
+
+    - name: Print environment variables
+      run: |
+        echo "Instance: $TESTMO_INSTANCE"
+        echo "Token: $TESTMO_TOKEN"
+        echo "Project ID: $TESTMO_PROJECT_ID"
+      env:
+        TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
+        TESTMO_INSTANCE: ${{ secrets.TESTMO_INSTANCE }}
+        TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
+
+    - name: Upload test results to Testmo
+      env:
+        TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
+        TESTMO_INSTANCE: ${{ secrets.TESTMO_INSTANCE }}
+        TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
+      run: |
+        testmo automation:run:submit \
+          --instance $TESTMO_INSTANCE \
+          --project-id 2 \
+          --name "New Test Run" \
+          --source "ecommerce-app-github-actions" \
+          --results "./ecommerce/TestResults/test_results.trx"

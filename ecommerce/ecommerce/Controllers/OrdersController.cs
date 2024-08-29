@@ -49,7 +49,7 @@ namespace ecommerce.Controllers
         }
 
         // POST: orders/additemstoshoppingcart
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> AddItemToShoppingCart(int id)
         {
             var item = await _moviesService.GetMovieByIdAsync(id);
