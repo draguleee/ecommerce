@@ -55,6 +55,6 @@ jobs:
           --api-key $TESTMO_API_KEY \
           --project-id 2 \
           --name "New Test Run"
-          --source "GitHub Actions" \
+          --source "ecommerce-app GitHub Actions CI" \
           --title "CI Test Run on Main" \
           --results "./ecommerce/TestResults/test_results.trx"
