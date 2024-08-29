@@ -44,6 +44,5 @@ jobs:
           --api-key $TESTMO_API_KEY \
           --project-id $TESTMO_PROJECT_ID \
           --name "ecinema" \
-          --title "CI Test Run on Main" \
           --source "GitHub Actions" \
           --results "./ecommerce/TestResults/test_results.trx"
