@@ -33,6 +33,17 @@ jobs:
     - name: Install Testmo CLI
       run: npm install -g @testmo/testmo-cli
 
+    - name: Print environment variables
+      run: |
+        echo "Instance: $TESTMO_INSTANCE"
+        echo "API Key: $TESTMO_API_KEY"
+        echo "Project ID: $TESTMO_PROJECT_ID"
+      env:
+        TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
+        TESTMO_INSTANCE: ${{ secrets.TESTMO_INSTANCE }}
+        TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
+    
+
     - name: Upload test results to Testmo
       env:
         TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
@@ -40,9 +51,10 @@ jobs:
         TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
       run: |
         testmo automation:run:submit \
-          --instance "${{ secrets.TESTMO_INSTANCE }}" \
+          --instance $TESTMO_URL \
           --api-key $TESTMO_API_KEY \
-          --project-id $TESTMO_PROJECT_ID \
-          --title "CI Test Run on Main" \
+          --project-id 2 \
+          --name "New Test Run"
           --source "GitHub Actions" \
+          --title "CI Test Run on Main" \
           --results "./ecommerce/TestResults/test_results.trx"

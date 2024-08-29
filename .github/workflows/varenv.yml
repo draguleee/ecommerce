@@ -1,9 +1,0 @@
-- name: Debugging: Print environment variables
-  run: |
-    echo "Instance: $TESTMO_INSTANCE"
-    echo "API Key: $TESTMO_API_KEY"
-    echo "Project ID: $TESTMO_PROJECT_ID"
-  env:
-    TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
-    TESTMO_INSTANCE: ${{ secrets.TESTMO_INSTANCE }}
-    TESTMO_PROJECT_ID: ${{ secrets.TESTMO_PROJECT_ID }}
