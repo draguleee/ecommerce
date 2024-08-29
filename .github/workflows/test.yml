@@ -19,13 +19,16 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      working-directory: ./ecommerce
+      run: dotnet restore ecommerce.sln
 
     - name: Build solution
-      run: dotnet build --configuration Release
+      working-directory: ./ecommerce
+      run: dotnet build ecommerce.sln --configuration Release
 
     - name: Run NUnit tests
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults --logger "trx;LogFileName=test_results.trx"
+      working-directory: ./ecommerce
+      run: dotnet test ecommerce.sln --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults --logger "trx;LogFileName=test_results.trx"
 
     - name: Install Testmo CLI
       run: npm install -g @testmo/testmo-cli
@@ -38,6 +41,6 @@ jobs:
         testmo automation:run:submit \
           --url $TESTMO_URL \
           --api-key $TESTMO_API_KEY \
-          --project "ecinema" \
+          --project "Your Project Name" \
           --title "CI Test Run on Main" \
-          --results "./TestResults/test_results.trx"
+          --results "./ecommerce/TestResults/test_results.trx"
