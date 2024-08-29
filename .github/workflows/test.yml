@@ -39,7 +39,7 @@ jobs:
         TESTMO_URL: ${{ secrets.TESTMO_URL }}
       run: |
         testmo automation:run:submit \
-          --url $TESTMO_URL \
+          --instance $TESTMO_URL \
           --api-key $TESTMO_API_KEY \
           --project "Your Project Name" \
           --title "CI Test Run on Main" \
