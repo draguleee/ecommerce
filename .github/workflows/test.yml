@@ -54,5 +54,4 @@ jobs:
           --project-id 2 \
           --name "New Test Run" \
           --source "ecommerce-app GitHub Actions CI" \
-          --title "CI Test Run on Main" \
           --results "./ecommerce/TestResults/test_results.trx"
