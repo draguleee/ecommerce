@@ -43,5 +43,6 @@ jobs:
           --instance $TESTMO_URL \
           --api-key $TESTMO_API_KEY \
           --project-id $TESTMO_PROJECT_ID \
+          --project "ecinema" \
           --title "CI Test Run on Main" \
           --results "./ecommerce/TestResults/test_results.trx"
