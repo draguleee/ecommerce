@@ -53,5 +53,5 @@ jobs:
           --instance $TESTMO_INSTANCE \
           --project-id 2 \
           --name "New Test Run" \
-          --source "ecommerce-app GitHub Actions CI" \
+          --source "ecommerce-app-github-actions" \
           --results "./ecommerce/TestResults/test_results.trx"
