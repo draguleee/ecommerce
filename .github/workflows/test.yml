@@ -1,11 +1,43 @@
-name: Test
+name: CI Test and Upload to Testmo
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
-    name: Test
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "Hello world"
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build solution
+      run: dotnet build --configuration Release
+
+    - name: Run NUnit tests
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults --logger "trx;LogFileName=test_results.trx"
+
+    - name: Install Testmo CLI
+      run: npm install -g @testmo/testmo-cli
+
+    - name: Upload test results to Testmo
+      env:
+        TESTMO_API_KEY: ${{ secrets.TESTMO_API_KEY }}
+        TESTMO_URL: ${{ secrets.TESTMO_URL }}
+      run: |
+        testmo automation:run:submit \
+          --url $TESTMO_URL \
+          --api-key $TESTMO_API_KEY \
+          --project "ecinema" \
+          --title "CI Test Run on Main" \
+          --results "./TestResults/test_results.trx"
